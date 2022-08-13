@@ -1,12 +1,12 @@
 {
   "dependencies": {
+    "console.table": "^0.10.0",
     "inquirer": "^8.2.4"
   },
   "name": "employee-tracker",
   "description": "",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
