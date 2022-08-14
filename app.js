@@ -32,6 +32,9 @@ const db = mysql.createConnection(
         case "View all Roles":
           viewRoles();
           break;  
+        case "View all Employees":
+          viewEmployees();
+          break;
       }
     })
   }
@@ -45,16 +48,25 @@ const viewDepartments = () => {
 
 const viewRoles = () => {
   db.query(`SELECT * FROM role;`, function(err, rows) {
+    console.log("test");
     console.table(rows);
     promptOwner();
   });
 };
 
-// const viewEmployees = () => {
-//   db.query(`SELECT * FROM employee;`, function(err, rows) {
-//     console.table(rows);
-//   });
-// };
+const viewEmployees = () => {
+  db.query(`SELECT employee.*, role.title AS job_title, departments.name AS department, role.salary, manager.first_name AS manager
+            FROM employee
+            LEFT JOIN  role ON employee.role_id = role.id
+            LEFT JOIN departments ON role.department_id = departments.id
+            LEFT JOIN employee manager ON employee.manager_id = manager.id;`, function(err, rows) {
+    console.log("test");
+    console.table(rows);
+    promptOwner();
+  });
+};
+
+// including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 
 
 promptOwner();
