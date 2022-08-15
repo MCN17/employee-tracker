@@ -21,7 +21,7 @@ const db = mysql.createConnection(
             type: "list",
             name: "options",
             message: "Please choose one of the following options:",
-            choices:["View all Departments", "View all Roles", "View all Employees", "Add a Department", "Add a Role", "Update an Employee Role"]
+            choices:["View all Departments", "View all Roles", "View all Employees", "Add a Department", "Add a Role", "Add an Employee", "Update an Employee Role"]
         }
     ])
     .then(userChoice => {
@@ -40,6 +40,9 @@ const db = mysql.createConnection(
           break;
         case "Add a Role":
           addRole();
+          break;
+        case "Add an Employee":
+          addEmployee();
           break;
       }
     })
@@ -130,5 +133,47 @@ const addRole = () => {
   })
 }
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+
+const addEmployee = () => {
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "first_name",
+      message: "Please enter the employee's first name."
+    },
+    {
+      type: "input",
+      name: "last_name",
+      message: "Please enter the employee's last name."
+    },
+    {
+      type: "input",
+      name: "role",
+      message: "Please enter thie employee's role ID."
+    },
+    {
+      type: "input",
+      name: "manager",
+      message: "Please enter the employee's manager ID"
+    }
+  ])
+  .then(input => {
+    db.query(`INSERT INTO employee SET ?`,
+    {
+      first_name: input.first_name,
+      last_name: input.last_name,
+      role_id: input.role,
+      manager_id: input.manager
+    },
+    function (err) {
+      if (err) throw err;
+      console.log("Added employee successfully!");
+      promptOwner();
+    }
+    )
+  });
+};
+
+// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 
 promptOwner();
