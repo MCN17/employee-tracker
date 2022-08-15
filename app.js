@@ -35,6 +35,12 @@ const db = mysql.createConnection(
         case "View all Employees":
           viewEmployees();
           break;
+        case "Add a Department":
+          addDepartment();
+          break;
+        case "Add a Role":
+          addRole();
+          break;
       }
     })
   }
@@ -68,5 +74,61 @@ const viewEmployees = () => {
 
 // including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 
+const addDepartment = () => {
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "Please enter the name of the department."
+    }
+  ])
+  .then(input => {
+    db.query(`INSERT INTO departments SET ?`,
+      {
+        name: input.name
+      },
+      function (err) {
+        if (err) throw err;
+        console.log("Added department successfully!");
+        promptOwner();
+      }
+    )
+  });
+};
+
+const addRole = () => {
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "name", 
+      message: "Please enter the name of the role."
+    },
+    {
+      type: "input", 
+      name: "salary",
+      message: "Please enter the salary for this role."
+    },
+    {
+      type: "input",
+      name: "department",
+      message: "Please enter the department ID for this role."
+    }
+  ])
+  .then(input => {
+    db.query(`INSERT INTO role SET ?`,
+    {
+      title: input.name,
+      salary: input.salary,
+      department_id: input.department
+    },
+    function (err) {
+      if (err) throw err;
+      console.log("Added role successfully!");
+      promptOwner();
+    }
+    )
+  })
+}
+// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 
 promptOwner();
