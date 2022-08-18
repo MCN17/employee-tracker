@@ -44,6 +44,9 @@ const db = mysql.createConnection(
         case "Add an Employee":
           addEmployee();
           break;
+        case "Update an Employee Role":
+          updateRole();
+          break;
       }
     })
   }
@@ -175,5 +178,33 @@ const addEmployee = () => {
 };
 
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+
+const updateRole = () => {
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "employee",
+      message: "Which employee would you like to update?"
+    },
+    {
+      type: "input",
+      name: "role",
+      message: "Please enter the new role for the employee."
+    }
+  ])
+  .then(input => {
+    db.query(`UPDATE employee SET role_id = ? WHERE id = ?`,
+    {
+      first_name: input.employee,
+      role_id: input.role
+    },
+    function (err) {
+      if (err) throw err;
+      console.log("Successfully updated employee's role!");
+      promptOwner();
+    }
+    )
+  });
+};
 
 promptOwner();
