@@ -4,7 +4,7 @@
 Employee Tracker is an application that allows business owners to view and manage the deparments, roles, and employees in their company. Using simple inquier prompts they are able to add employees or update the roles in their company database.
 
 ## Demo
-https://drive.google.com/file/d/12m3Gt6rVDQCOtPYooUlfrVvROky0sDnX/view
+https://drive.google.com/file/d/12m3Gt6rVDQCOtPYooUlfrVvROky0sDnX/view?usp=sharing
 
 ## Built With
 * JavaScript
