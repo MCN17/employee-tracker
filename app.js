@@ -4,7 +4,7 @@ const fs = require("fs");
 const mysql = require('mysql2');
 
 
-// Connect to database
+// Connect to database.
 const db = mysql.createConnection(
     {
       host: 'localhost',
@@ -15,6 +15,7 @@ const db = mysql.createConnection(
     console.log("test")
   );
 
+  // Opening prompt with choices for user.
   const promptOwner = () => {
     return inquirer.prompt([
         {
@@ -51,6 +52,7 @@ const db = mysql.createConnection(
     })
   }
 
+// Function that allows user to view all of the departments in the database.
 const viewDepartments = () => {
   db.query(`SELECT * FROM departments;`, function(err, rows) {
     console.table(rows);
@@ -58,6 +60,7 @@ const viewDepartments = () => {
   });
 };
 
+// Function that allows the user to view all of the roles in the database.
 const viewRoles = () => {
   db.query(`SELECT * FROM role;`, function(err, rows) {
     console.log("test");
@@ -66,6 +69,7 @@ const viewRoles = () => {
   });
 };
 
+// Function that allows the user to view all of the employees in the database.
 const viewEmployees = () => {
   db.query(`SELECT employee.*, role.title AS job_title, departments.name AS department, role.salary, manager.first_name AS manager
             FROM employee
@@ -78,8 +82,7 @@ const viewEmployees = () => {
   });
 };
 
-// including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-
+// Function that allows the user to add a department to the database.
 const addDepartment = () => {
   return inquirer.prompt([
     {
@@ -102,6 +105,7 @@ const addDepartment = () => {
   });
 };
 
+// Function that allows the user to add a role to the database.
 const addRole = () => {
   return inquirer.prompt([
     {
@@ -135,8 +139,8 @@ const addRole = () => {
     )
   })
 }
-// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 
+// Function that allows the user to add an employee to the database.
 const addEmployee = () => {
   return inquirer.prompt([
     {
@@ -177,8 +181,7 @@ const addEmployee = () => {
   });
 };
 
-// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-
+// Function that allows the user to update the rold of an employee in the database.
 const updateRole = () => {
   return inquirer.prompt([
     {
@@ -193,7 +196,7 @@ const updateRole = () => {
     }
   ])
   .then(input => {
-    db.query(`UPDATE employee SET role_id = ? WHERE id = ?`,
+    db.query(`UPDATE employee SET role_id = ? WHERE id = 1`,
     {
       first_name: input.employee,
       role_id: input.role
@@ -208,3 +211,6 @@ const updateRole = () => {
 };
 
 promptOwner();
+
+
+

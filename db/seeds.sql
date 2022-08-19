@@ -1,3 +1,4 @@
+-- Creates a column called departments.
 INSERT INTO departments (name)
 VALUES
 ("Engineering"),
@@ -5,6 +6,7 @@ VALUES
 ("Legal"), 
 ("Sales");
 
+-- Creates columns for title, salary, and department_id.
 INSERT INTO role (title, salary, department_id)
 VALUES
 ("Sales Lead", 100000, 4),
@@ -16,6 +18,7 @@ VALUES
 ("Legal Team Lead", 250000, 3),
 ("Lawyer", 190000, 3);
 
+-- Creates columns for first_name, last_name, rold_id, and manager_id.
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
 ("John", "Doe", 1, NULL),
