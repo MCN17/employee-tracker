@@ -7,6 +7,7 @@ Employee Tracker is an application that allows business owners to view and manag
 * JavaScript
 * Express.js
 * Node.js
+* Inquirer
 * Mysql
 
 ## Installation
